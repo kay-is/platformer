@@ -1,0 +1,24 @@
+{
+  "name": "platformer",
+  "version": "0.0.1",
+  "private": true,
+  "description": "a simple platformer game with crafty",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "~3.6.2",
+    "gulp-uglify": "~0.2.1",
+    "gulp-concat": "~2.2.0",
+    "gulp-jshint": "~1.5.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kay-is/platformer.git"
+  },
+  "author": "Kay Plößer",
+  "license": "GPL",
+  "readmeFilename": "README.md",
+  "gitHead": "38d3e1da05d1ec6ab7e780e18f6728192b0a34aa"
+}
