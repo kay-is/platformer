@@ -3,31 +3,11 @@ Crafty.c('Block', {
 
 	_platform: null,
 
-	_wallSprites: [
-		'GfxBlock1',
-		'GfxBlock2',
-		'GfxBlock3',
-		'GfxBlock4',
-		'GfxBlock5',
-		'GfxBlock6',
-		'GfxBlock7'
-	],
-
-	_groudSprites: [
-		'GfxBlock8',
-		'GfxBlock9',
-		'GfxBlock11',
-		'GfxBlock12',
-		'GfxBlock13',
-		'GfxBlock14'
-	],
-
 	_sprite: null,
 
 	init: function () {
-		this._sprite = Crafty.math.randomElementOfArray(this._groudSprites);
-
 		this.requires('2D, Position, Canvas');
+		this._sprite = 'GfxBlock';
 
 		this.addComponent(this._sprite);
 
@@ -49,7 +29,7 @@ Crafty.c('Block', {
 		delete this._platform;
 
 		this.removeComponent(this._sprite);
-		this._sprite = Crafty.math.randomElementOfArray(this._wallSprites);
+		this._sprite = 'GfxPlatform';
 		this.addComponent(this._sprite);
 	}
 });

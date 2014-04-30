@@ -1,0 +1,8 @@
+<component name="libraryTable">
+  <library name="Crafty" type="javaScript">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/crafty.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

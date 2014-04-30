@@ -4,10 +4,9 @@ Game = {
 	width: 4 / 3 * innerHeight,
 	scale: innerHeight / 768,
 
-	resources: [
-		'res/blocks1.png',
-		'res/2781-24x24x8.png'
-	],
+	score: 0,
+
+	sprites: 'res/simples_pimples.png',
 
 	maps: {},
 
@@ -15,29 +14,16 @@ Game = {
 		Crafty.init(Game.width, Game.height);
 		Crafty.canvas.init();
 
-		Crafty.load(Game.resources, function () {
+		Crafty.canvas.context.webkitImageSmoothingEnabled = false;
+		Crafty.canvas.context.mozImageSmoothingEnabled = false;
+		Crafty.canvas.context.imageSmoothingEnabled = false;
 
-			Crafty.sprite(24, 'res/2781-24x24x8.png', {
-				GfxShuriken: [0, 0]
-			});
+		Crafty.load([Game.sprites], function () {
 
-			Crafty.sprite(32, 'res/blocks1.png', {
-				GfxBlock1: [3, 3],
-				GfxBlock2: [4, 3],
-				GfxBlock3: [5, 3],
-				GfxBlock4: [6, 3],
-				GfxBlock5: [7, 3],
-				GfxBlock6: [8, 3],
-				GfxBlock7: [9, 3],
-
-				GfxBlock8: [10, 3],
-				GfxBlock9: [11, 3],
-				GfxBlock10: [12, 3],
-				GfxBlock11: [13, 3],
-				GfxBlock12: [14, 3],
-				GfxBlock13: [15, 3],
-				GfxBlock14: [16, 3],
-				GfxBlock15: [17, 3]
+			Crafty.sprite(32, Game.sprites, {
+				GfxPlayer: [26, 1],
+				GfxBlock: [4, 23],
+				GfxPlatform: [4, 24]
 			});
 
 			switch (window.location.hash) {
@@ -48,6 +34,21 @@ Game = {
 					Crafty.scene('Play');
 			}
 		});
+	},
+
+	initScore: function () {
+		Game.score = 0;
+		Game.scoreText = Crafty.e('2D, Canvas, Text')
+			.text('Score: 0')
+			.textColor('#ffffff')
+			.textFont({size: '20px'})
+			.attr({x: 10, y: 10, w: 100, h: 30 });
+	},
+
+	addPoints: function (points) {
+		Game.score += points;
+
+		Game.scoreText.text('Score: ' + Game.score);
 	}
 };
 

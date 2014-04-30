@@ -1,5 +1,5 @@
 Crafty.scene('Play', function () {
-	Crafty.background('FireBrick');
+	Crafty.background('black');
 
 	Crafty.viewport.scale(Game.scale);
 
@@ -9,5 +9,10 @@ Crafty.scene('Play', function () {
 		if (!map[i][3]) block.removePlatform();
 	}
 
+	Crafty.e('Enemy1').setPosition(23, 5).moveRight();
+	Crafty.e('Enemy1').setPosition(9, 5).moveLeft();
+
 	Crafty.e('Player').setPosition(15, 18);
+
+	Game.initScore();
 });

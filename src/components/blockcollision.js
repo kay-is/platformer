@@ -8,7 +8,7 @@ Crafty.c('BlockCollision', {
 				if (from.y > this.y) this._up = false;
 			}
 
-			if (this.y > Game.height) this.y = 0;
+			if (this._y > Game.height) this.y = 0;
 		});
 		this.gravity('Platform');
 	}

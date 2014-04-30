@@ -11,6 +11,9 @@ Crafty.c('Throwable', {
 			.gravityConst(0.3)
 			.attr({ w: 24, h: 24 })
 			.onHit('Block', this.stick)
+			.onHit('Enemy', function (enemies) {
+				if( !this.stuck ) enemies[0].obj.kill();
+			})
 			.collision(new Crafty.circle(this._origin.x, this._origin.y, 10));
 	},
 

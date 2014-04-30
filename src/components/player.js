@@ -3,19 +3,30 @@ Crafty.c('Player', {
 	_countText: null,
 
 	init: function () {
-		this.requires('Position, Canvas, Color, PlayerInput, BlockCollision, ThrowableCollision, MouseEvents');
+		this.requires('Position, Canvas, PlayerInput, BlockCollision, ThrowableCollision, MouseEvents, SpriteAnimation, GfxPlayer');
 
 		this.configProperties();
 		this.configInput();
 
-		this.initCountText();
+		this.reel('running', 300, [
+			[27, 1],
+			[28, 1]
+		]);
+
+		this.animate('running');
+
+		//this.initCountText();
+	},
+
+	kill: function () {
+		this.destroy();
+		Crafty.e('Player').setPosition(15, 18);
 	},
 
 	configProperties: function () {
-		this.attr({ w: Game.gridSize, h: Game.gridSize * 2 })
+		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.origin('center')
-			.gravityConst(0.564)
-			.color('black');
+			.gravityConst(0.564);
 	},
 
 	configInput: function () {
@@ -45,7 +56,6 @@ Crafty.c('Player', {
 	takeKnife: function (shurikens) {
 		shurikens[0].obj.destroy();
 		this._shurikens++;
-		this._countText.text(this._shurikens);
 	},
 
 	'throw': function (e) {
@@ -56,7 +66,6 @@ Crafty.c('Player', {
 			);
 
 			this._shurikens--;
-			this._countText.text(this._shurikens);
 		}
 	}
 });

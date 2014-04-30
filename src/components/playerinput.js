@@ -32,16 +32,6 @@ Crafty.c('PlayerInput', {
 			}
 		});
 
-		/*
-		 this.bind("KeyDown", function (e) {
-		 if( !this._falling &&
-		 (e.key === Crafty.keys.UP_ARROW ||
-		 e.key === Crafty.keys.W ||
-		 e.key === Crafty.keys.Z
-		 )
-		 ) this._up = true;
-		 });
-		 */
 		return this;
 	}
 });

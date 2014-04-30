@@ -8,7 +8,8 @@ var jsLintGlobs = [
 	'src/*.js',
 	'src/maps/*.js',
 	'src/components/*.js',
-	'src/scenes/*.js'];
+	'src/scenes/*.js'
+];
 
 var jsGlobs = [
 	'lib/*.js',
