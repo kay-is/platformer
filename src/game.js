@@ -22,6 +22,7 @@ Game = {
 
 			Crafty.sprite(32, Game.sprites, {
 				GfxPlayer: [26, 1],
+				GfxEnemyFire: [27, 13],
 				GfxBlock: [4, 23],
 				GfxPlatform: [4, 24]
 			});

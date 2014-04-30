@@ -3,15 +3,20 @@ Game.Enemy1 = Crafty.c('Enemy1', {
 	_speed: 2,
 
 	init: function () {
-		this.requires('Enemy, Position, Canvas, Gravity, Collision, Color');
+		this.requires('Enemy, Position, Canvas, Gravity, Collision, GfxEnemyFire');
 
-		this.color('red')
-			.attr({ w: Game.gridSize, h: Game.gridSize })
+		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.gravity('Platform')
 			.onHit('Block', function (blocks) {
 				var blockX = blocks[0].obj._x;
-				if (blockX > this._x) this._xDirection = -1;
-				else if (blockX < this._x) this._xDirection = 1;
+				if (blockX > this._x) {
+					this._xDirection = -1;
+					this.flip();
+				}
+				else if (blockX < this._x)  {
+					this._xDirection = 1;
+					this.unflip();
+				}
 			})
 			.onHit('Player', function (players) {
 				players[0].obj.kill();
@@ -31,6 +36,7 @@ Game.Enemy1 = Crafty.c('Enemy1', {
 
 	moveLeft: function () {
 		this._xDirection = -1;
+		this.flip();
 		return this;
 	},
 
