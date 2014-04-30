@@ -8,14 +8,13 @@ Crafty.c('Player', {
 		this.configProperties();
 		this.configInput();
 
-		this.reel('running', 300, [
+		this.reel('running', 200, [
 			[27, 1],
 			[28, 1]
 		]);
 
-		this.animate('running');
+		this.animate('running', -1);
 
-		//this.initCountText();
 	},
 
 	kill: function () {
@@ -26,7 +25,7 @@ Crafty.c('Player', {
 	configProperties: function () {
 		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.origin('center')
-			.gravityConst(0.564);
+			.gravityConst(0.5);
 	},
 
 	configInput: function () {

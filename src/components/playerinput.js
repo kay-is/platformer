@@ -1,5 +1,5 @@
 Crafty.c('PlayerInput', {
-	_speed: 3,
+	_speed: 1,
 	_up: false,
 
 	_keys: {
