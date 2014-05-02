@@ -11,7 +11,7 @@ Game.Enemy1 = Crafty.c('Enemy1', {
 			'' +
 			', Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyFire');
 
-		var gameHeight = Crafty.DOM.translate(0, Game.height).y;
+		this._gameHeight = Crafty.DOM.translate(0, Game.height).y;
 
 		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.gravity('Platform')
@@ -27,25 +27,33 @@ Game.Enemy1 = Crafty.c('Enemy1', {
 				}
 			})
 			.onHit('Player', function (players) {
-				players[0].obj.kill();
+				if( !this._dead ) players[0].obj.kill();
 			})
-			.bind('EnterFrame', function () {
-				if (!this._falling) this.x += this._xDirection * this._speed;
-				else this.x += this._xDirection * (this._speed / 2);
+			.bind('EnterFrame', this.moving);
 
-				if (this._y > gameHeight) this.y = 0;
-			});
-
-		this.reel('flame', 800, [
+		this.reel('flying', 800, [
 			[27, 13],
 			[30, 13]
 		]);
 
-		this.animate('flame', -1);
+		this.reel('dead', 10000, [
+			[31, 13]
+		]);
+
+		this.animate('flying', -1);
+	},
+
+	moving: function () {
+		if (!this._falling) this.x += this._xDirection * this._speed;
+		else this.x += this._xDirection * (this._speed / 2);
+
+		if (this._y > this._gameHeight) this.y = 0;
 	},
 
 	kill: function () {
-		this.destroy();
+		this._dead = true;
+		this.unbind('EnterFrame', this.moving);
+		this.animate('dead', -1);
 		Game.addPoints(10);
 	},
 

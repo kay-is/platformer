@@ -18,7 +18,7 @@ Crafty.c('PlayerInput', {
 
 		if (speed) this._speed = speed;
 		if (arguments.length < 2) {
-			this._jumpSpeed = this._speed * 2;
+			this._jumpSpeed = this._speed * 4;
 		} else {
 			this._jumpSpeed = jump;
 		}
