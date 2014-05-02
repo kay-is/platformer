@@ -7,7 +7,7 @@ Crafty.c('Block', {
 
 	init: function () {
 		this.requires('2D, Position, Canvas');
-		this._sprite = 'GfxBlock';
+		this._sprite = 'GfxGreenBlock';
 
 		this.addComponent(this._sprite);
 
@@ -29,7 +29,7 @@ Crafty.c('Block', {
 		delete this._platform;
 
 		this.removeComponent(this._sprite);
-		this._sprite = 'GfxPlatform';
+		this._sprite = 'GfxGreenPlatform';
 		this.addComponent(this._sprite);
 	}
 });

@@ -20,12 +20,7 @@ Game = {
 
 		Crafty.load([Game.sprites], function () {
 
-			Crafty.sprite(32, Game.sprites, {
-				GfxPlayer: [26, 1],
-				GfxEnemyFire: [27, 13],
-				GfxBlock: [4, 23],
-				GfxPlatform: [4, 24]
-			});
+			Game.initSprites();
 
 			switch (window.location.hash) {
 				case '#edit':
@@ -50,6 +45,23 @@ Game = {
 		Game.score += points;
 
 		Game.scoreText.text('Score: ' + Game.score);
+	},
+
+	initSprites: function () {
+		Crafty.sprite(32, Game.sprites, {
+			GfxShuriken: [27, 39],
+			GfxPlayer: [26, 1],
+			GfxRedBlock: [0, 4],
+			GfxRedPlatform: [0, 5],
+			GfxBlueBlock: [1, 4],
+			GfxBluePlatform: [1, 5],
+			GfxGreyBlock: [2, 4],
+			GfxGreyPlatform: [2, 5],
+			GfxYellowBlock: [3, 4],
+			GfxYellowPlatform: [3, 5],
+			GfxGreenBlock: [4, 4],
+			GfxGreenPlatform: [4, 5]
+		});
 	}
 };
 

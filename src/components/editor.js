@@ -27,7 +27,9 @@ Crafty.c('Editor', {
 		var mousePosition = Crafty.DOM.translate(click.clientX, click.clientY);
 		var x = Math.floor(mousePosition.x / Game.gridSize);
 		var y = Math.floor(mousePosition.y / Game.gridSize);
-		var block = Crafty.e('Block, Mouse, Collision');
+		var block = Crafty.e('2D, Position, Canvas, Sprite, Mouse, Collision, GfxBlock');
+
+		block.sprite(0, 0);
 
 		var top = Crafty.e('2D, Position, Collision');
 		top.attr({w: 32, h: 32});
@@ -40,9 +42,32 @@ Crafty.c('Editor', {
 
 		block.setPosition(x, y);
 
-		block.bind('MouseDown', function () {
-			block.destroy();
-			delete this.blocks[ block._entityName ];
+		var spriteX = 0, spriteY = 0;
+		block.bind('MouseDown', function (e) {
+			switch (e.button) {
+				case Crafty.mouseButtons.LEFT:
+					spriteX++;
+					if(spriteX > 43) {
+						spriteX = 0;
+						spriteY++;
+						if( spriteY > 50) spriteY = 0;
+					}
+ 					block.sprite(spriteX, spriteY);
+					break;
+				case Crafty.mouseButtons.MIDDLE:
+					block.destroy();
+					delete this.blocks[ block._entityName ];
+					break;
+				case Crafty.mouseButtons.RIGHT:
+					spriteX--;
+					if(spriteX < 0) {
+						spriteX = 43;
+						spriteY--;
+						if( spriteY < 0) spriteY = 50;
+					}
+					block.sprite(spriteX, spriteY);
+					break;
+			}
 		}.bind(this));
 
 		this.blocks[ block._entityName ] = block;

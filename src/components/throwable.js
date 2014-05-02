@@ -6,10 +6,10 @@ Crafty.c('Throwable', {
 	init: function () {
 		this.requires('2D, Canvas, Gravity, Collision, DirectedMotion');
 
-		this.origin(12, 12)
+		this.origin(16, 16)
 			.gravity('Ground')
 			.gravityConst(0.3)
-			.attr({ w: 24, h: 24 })
+			.attr({ w: 32, h: 32 })
 			.onHit('Block', this.stick)
 			.onHit('Enemy', function (enemies) {
 				if( !this.stuck ) enemies[0].obj.kill();

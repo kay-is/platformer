@@ -7,14 +7,38 @@ Crafty.c('Player', {
 
 		this.configProperties();
 		this.configInput();
+		this.configAnimation();
+	},
 
-		this.reel('running', 200, [
+	configAnimation: function () {
+		this.reel('standing', 10000, [
+			[26, 1]
+		]);
+
+		this.reel('running', 150, [
 			[27, 1],
 			[28, 1]
 		]);
 
-		this.animate('running', -1);
+		this.reel('jumping', 10000, [
+			[27, 1]
+		]);
 
+		this.reel('attacking', 300, [
+			[29, 1],
+			[30, 1],
+			[26, 1]
+		]);
+
+		this.bind('NewDirection', this.setAnimation);
+	},
+
+	setAnimation: function (direction) {
+		var reel;
+		if (direction.x) reel = 'running';
+		if (direction.y) reel = 'jumping';
+		if (direction.x + direction.y === 0) reel = 'standing';
+		this.animate(reel, -1);
 	},
 
 	kill: function () {
@@ -35,21 +59,11 @@ Crafty.c('Player', {
 				else if (e.x < 0) this.flip();
 			})
 			.bind('MouseDown', function (e) {
-				if (e.button == Crafty.mouseButtons.LEFT) this.throw(e);
+				if (e.button == Crafty.mouseButtons.LEFT) {
+					this.animate('attacking', 1);
+					this.throw(e);
+				}
 			});
-	},
-
-	initCountText: function () {
-		this._countText = Crafty.e('2D, Canvas, Text')
-			.text(this._shurikens)
-			.textColor('#ffffff')
-			.textFont({size: '20px'})
-			.attr({
-				x: this.x + 10,
-				y: this.y + 10
-			});
-
-		this.attach(this._countText);
 	},
 
 	takeKnife: function (shurikens) {
