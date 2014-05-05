@@ -2,7 +2,7 @@ Crafty.c('Editor', {
 	_blocks: null,
 	_time: 0,
 	_menu: null,
-	_currentType: null,
+	_currentType: 'GfxRedBlock',
 
 	init: function () {
 		var canvas = Crafty.canvas._canvas;
@@ -26,12 +26,21 @@ Crafty.c('Editor', {
 
 		switch (click.mouseButton) {
 			case Crafty.mouseButtons.LEFT:
-				Crafty.e('2D, Canvas, ' + this._currentType).attr({x: x, y: y});
+				this.placeBlock(x, y);
 				break;
 			case Crafty.mouseButtons.RIGHT:
 				this.showMenu(mousePosition);
 				break;
 		}
+	},
+
+	placeBlock: function (x, y) {
+		var block = Crafty.e('Block, Mouse').attr({x: x, y: y});
+		block.removeComponent(block._sprite);
+		block.addComponent(this._currentType);
+		block.bind('MouseDown', function () {
+			block.destroy();
+		});
 	},
 
 	showMenu: function (mousePosition) {
