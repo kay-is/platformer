@@ -1,9 +1,12 @@
 Crafty.c('Editor', {
-	blocks: null,
+	_blocks: null,
+	_time: 0,
+	_menu: null,
+	_currentType: null,
 
 	init: function () {
 		var canvas = Crafty.canvas._canvas;
-		this.blocks = {};
+		this._blocks = {};
 
 		this.requires('2D, Canvas, Mouse');
 
@@ -12,71 +15,41 @@ Crafty.c('Editor', {
 		this.bind('MouseDown', this.dispatch);
 	},
 
+	setTime: function (seconds) {
+		this._time = seconds;
+	},
+
 	dispatch: function (click) {
+		var mousePosition = Crafty.DOM.translate(click.clientX, click.clientY);
+		var x = mousePosition.x - (mousePosition.x % Game.gridSize);
+		var y = mousePosition.y - (mousePosition.y % Game.gridSize);
+
 		switch (click.mouseButton) {
 			case Crafty.mouseButtons.LEFT:
-				this.placeBlock(click);
+				Crafty.e('2D, Canvas, ' + this._currentType).attr({x: x, y: y});
 				break;
 			case Crafty.mouseButtons.RIGHT:
-				this.exportMap(click);
+				this.showMenu(mousePosition);
 				break;
 		}
 	},
 
-	placeBlock: function (click) {
-		var mousePosition = Crafty.DOM.translate(click.clientX, click.clientY);
-		var x = Math.floor(mousePosition.x / Game.gridSize);
-		var y = Math.floor(mousePosition.y / Game.gridSize);
-		var block = Crafty.e('2D, Position, Canvas, Sprite, Mouse, Collision, GfxBlock');
+	showMenu: function (mousePosition) {
+		var self = this;
+		if (this._menu) this._menu.destroy();
 
-		block.sprite(0, 0);
+		this._menu = Crafty.e('EditorMenu').attr(mousePosition);
 
-		var top = Crafty.e('2D, Position, Collision');
-		top.attr({w: 32, h: 32});
-		top.onHit('Block', function () {
-			block.removePlatform();
-			top.destroy();
+		this._menu.bind('Select', function (selection) {
+			self._menu.destroy();
+			self._currentType = selection;
 		});
-
-		top.setPosition(x, y - 1);
-
-		block.setPosition(x, y);
-
-		var spriteX = 0, spriteY = 0;
-		block.bind('MouseDown', function (e) {
-			switch (e.button) {
-				case Crafty.mouseButtons.LEFT:
-					spriteX++;
-					if(spriteX > 43) {
-						spriteX = 0;
-						spriteY++;
-						if( spriteY > 50) spriteY = 0;
-					}
- 					block.sprite(spriteX, spriteY);
-					break;
-				case Crafty.mouseButtons.MIDDLE:
-					block.destroy();
-					delete this.blocks[ block._entityName ];
-					break;
-				case Crafty.mouseButtons.RIGHT:
-					spriteX--;
-					if(spriteX < 0) {
-						spriteX = 43;
-						spriteY--;
-						if( spriteY < 0) spriteY = 50;
-					}
-					block.sprite(spriteX, spriteY);
-					break;
-			}
-		}.bind(this));
-
-		this.blocks[ block._entityName ] = block;
 	},
 
 	exportMap: function () {
 		var id, map = [], block;
-		for (id in this.blocks) {
-			block = this.blocks[id];
+		for (id in this._blocks) {
+			block = this._blocks[id];
 			map.push([block.type, block.x, block.y, !!block._platform]);
 		}
 

@@ -1,6 +1,6 @@
 Game = {
 	gridSize: 32,
-	height: innerHeight,
+	height: innerHeight - 20,
 	width: 4 / 3 * innerHeight,
 	scale: innerHeight / 768,
 
@@ -19,7 +19,6 @@ Game = {
 		Crafty.canvas.context.imageSmoothingEnabled = false;
 
 		Crafty.load([Game.sprites], function () {
-
 			Game.initSprites();
 
 			switch (window.location.hash) {
