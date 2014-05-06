@@ -1,6 +1,6 @@
 Game = {
 	gridSize: 32,
-	height: innerHeight - 20,
+	height: innerHeight - 32,
 	width: 4 / 3 * innerHeight,
 	scale: innerHeight / 768,
 
@@ -50,16 +50,16 @@ Game = {
 		Crafty.sprite(32, Game.sprites, {
 			GfxShuriken: [27, 39],
 			GfxPlayer: [26, 1],
-			GfxRedBlock: [0, 4],
-			GfxRedPlatform: [0, 5],
-			GfxBlueBlock: [1, 4],
-			GfxBluePlatform: [1, 5],
-			GfxGreyBlock: [2, 4],
-			GfxGreyPlatform: [2, 5],
-			GfxYellowBlock: [3, 4],
-			GfxYellowPlatform: [3, 5],
-			GfxGreenBlock: [4, 4],
-			GfxGreenPlatform: [4, 5]
+			GfxRedBlock: [0, 5],
+			GfxRedPlatform: [0, 4],
+			GfxBlueBlock: [1, 5],
+			GfxBluePlatform: [1, 4],
+			GfxGreyBlock: [2, 5],
+			GfxGreyPlatform: [2, 4],
+			GfxYellowBlock: [3, 5],
+			GfxYellowPlatform: [3, 4],
+			GfxGreenBlock: [4, 5],
+			GfxGreenPlatform: [4, 4]
 		});
 	}
 };

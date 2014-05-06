@@ -5,12 +5,12 @@ Crafty.c('Editor', {
 	_currentType: 'GfxRedBlock',
 
 	init: function () {
-		var canvas = Crafty.canvas._canvas;
 		this._blocks = {};
 
-		this.requires('2D, Canvas, Mouse');
+		this.requires('2D, Canvas, Color, Mouse');
 
-		this.attr({ x: 0, y: 0, w: canvas.width, h: canvas.height });
+		this.color('lightgrey');
+		this.attr({ x: 0, y: 0, w: Game.width / Game.scale, h: Game.height / Game.scale });
 
 		this.bind('MouseDown', this.dispatch);
 	},
@@ -24,9 +24,14 @@ Crafty.c('Editor', {
 		var x = mousePosition.x - (mousePosition.x % Game.gridSize);
 		var y = mousePosition.y - (mousePosition.y % Game.gridSize);
 
+		if (this._menu) this._menu.destroy();
+
 		switch (click.mouseButton) {
 			case Crafty.mouseButtons.LEFT:
 				this.placeBlock(x, y);
+				break;
+			case Crafty.mouseButtons.MIDDLE:
+				this.exportMap();
 				break;
 			case Crafty.mouseButtons.RIGHT:
 				this.showMenu(mousePosition);
@@ -35,21 +40,25 @@ Crafty.c('Editor', {
 	},
 
 	placeBlock: function (x, y) {
-		var block = Crafty.e('Block, Mouse').attr({x: x, y: y});
-		block.removeComponent(block._sprite);
-		block.addComponent(this._currentType);
-		block.bind('MouseDown', function () {
-			block.destroy();
-		});
+		var self = this;
+		var block = Crafty.e('Block, Mouse')
+			.attr({x: x, y: y})
+			.setSprite(this._currentType)
+			.one('MouseDown', function () {
+				if (self._menu) self._menu.destroy();
+				block.destroy();
+				delete self._blocks[block._entityName];
+			});
+
+		this._blocks[block._entityName] = block;
 	},
 
 	showMenu: function (mousePosition) {
 		var self = this;
-		if (this._menu) this._menu.destroy();
 
 		this._menu = Crafty.e('EditorMenu').attr(mousePosition);
 
-		this._menu.bind('Select', function (selection) {
+		this._menu.one('Select', function (selection) {
 			self._menu.destroy();
 			self._currentType = selection;
 		});
@@ -59,7 +68,7 @@ Crafty.c('Editor', {
 		var id, map = [], block;
 		for (id in this._blocks) {
 			block = this._blocks[id];
-			map.push([block.type, block.x, block.y, !!block._platform]);
+			map.push([block._x / 32, block._y / 32, block.getSprite()]);
 		}
 
 		console.log('This map has ' + map.length + ' blocks');
