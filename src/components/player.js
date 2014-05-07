@@ -80,10 +80,13 @@ Crafty.c('Player', {
 	},
 
 	'throw': function (e) {
+		var click;
+
 		if (this._shurikens > 0) {
+			click = { x: e.clientX, y: e.clientY };
 			Crafty.e('Shuriken').throw(
 				{ x: this.x, y: this.y },
-				Crafty.DOM.translate(e.clientX, e.clientY)
+				Crafty.DOM.translate(click.x, click.y)
 			);
 
 			this._shurikens--;

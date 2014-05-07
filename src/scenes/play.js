@@ -10,10 +10,19 @@ Crafty.scene('Play', function () {
 			.setSprite(map[i][2]);
 	}
 
-	Crafty.e('Enemy1').setPosition(23, 5).moveRight();
-	Crafty.e('Enemy1').setPosition(9, 5).moveLeft();
+	Game.player = Crafty.e('Player').setPosition(15, 18);
 
-	Crafty.e('Player').setPosition(15, 18);
+	var i;
+
+	for (i = 2; i < 34; i += 4) {
+		Crafty.e('Enemy2').setPosition(i, 4);
+	}
+
+	Crafty.e('Enemy1').setPosition(1, 11);
+	Crafty.e('Enemy1').setPosition(30, 11).moveLeft();
+
+	Crafty.e('Enemy1').setPosition(16, 11);
+	Crafty.e('Enemy1').setPosition(15, 11).moveLeft();
 
 	Game.initScore();
 });

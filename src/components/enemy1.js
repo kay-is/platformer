@@ -1,4 +1,4 @@
-Game.Enemy1 = Crafty.c('Enemy1', {
+Crafty.c('Enemy1', {
 	_xDirection: 1,
 	_speed: 2,
 
@@ -7,9 +7,7 @@ Game.Enemy1 = Crafty.c('Enemy1', {
 			GfxEnemyFire: [27, 13]
 		});
 
-		this.requires('Enemy' +
-			'' +
-			', Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyFire');
+		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyFire');
 
 		this._gameHeight = Crafty.DOM.translate(0, Game.height).y;
 

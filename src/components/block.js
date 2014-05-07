@@ -10,7 +10,6 @@ Crafty.c('Block', {
 			var sprite = components[0];
 			this._sprite = sprite;
 			if (sprite.toLowerCase().search('platform') !== -1) {
-				console.debug(this._entityName + ' is platform!');
 				this.attach(Crafty.e('2D, Canvas, Platform').attr({
 					h: 3,
 					w: this.w,

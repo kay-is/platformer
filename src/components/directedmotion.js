@@ -18,12 +18,24 @@ Crafty.c('DirectedMotion', {
 		d.y /= length;
 
 		this._direction = d;
+		return this;
 	},
 
-	moveInDirection: function (speed) {
+	moveInDirection: function (speed, target) {
+		var from = { x: this._x, y: this._y };
+		if (target) this.target(target);
+
+		if (this._direction.x > 0) this.unflip();
+		else this.flip();
+
+
 		this.attr({
 			x: this.x + this._direction.x * speed,
 			y: this.y + this._direction.y * speed
 		});
+
+		this.trigger('Moved', from);
+
+		return this;
 	}
 });
