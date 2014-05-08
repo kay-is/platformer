@@ -1,13 +1,13 @@
-Crafty.c('Enemy1', {
+Crafty.c('Skeleton', {
 	_xDirection: 1,
-	_speed: 2,
+	_speed: 1,
 
 	init: function () {
 		Crafty.sprite(32, Game.sprites, {
-			GfxEnemyFire: [27, 13]
+			GfxEnemyGhost: [27, 6]
 		});
 
-		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyFire');
+		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyGhost');
 
 		this._gameHeight = Crafty.DOM.translate(0, Game.height).y;
 
@@ -25,26 +25,30 @@ Crafty.c('Enemy1', {
 				}
 			})
 			.onHit('Player', function (players) {
-				if( !this._dead ) players[0].obj.kill();
+				if (!this._dead) players[0].obj.kill();
 			})
 			.bind('EnterFrame', this.moving);
 
-		this.reel('flying', 800, [
-			[27, 13],
-			[30, 13]
+		this.reel('walking', 350, [
+			[27, 6],
+			[28, 6]
 		]);
 
 		this.reel('dead', 10000, [
-			[31, 13]
+			[31, 6]
 		]);
 
-		this.animate('flying', -1);
+		this.animate('walking', -1);
 	},
 
 	moving: function () {
-		if (!this._falling) this.x += this._xDirection * this._speed;
-		else this.x += this._xDirection * (this._speed / 2);
-
+		if (this._falling) {
+			this.pauseAnimation();
+			this.x += this._xDirection * (this._speed / 2);
+		} else {
+			this.resumeAnimation();
+			this.x += this._xDirection * this._speed;
+		}
 		if (this._y > this._gameHeight) this.y = 0;
 	},
 

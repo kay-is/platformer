@@ -1,4 +1,4 @@
-Crafty.c('Enemy2', {
+Crafty.c('Bat', {
 	_speed: 4,
 	_target: null,
 
