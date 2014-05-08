@@ -4,7 +4,7 @@ Crafty.c('Throwable', {
 	stuck: false,
 
 	init: function () {
-		this.requires('2D, Canvas, Gravity, Collision, DirectedMotion');
+		this.requires('2D, Canvas, Gravity, Collision, DirectedMotion, WiredHitBox');
 
 		this.origin(16, 16)
 			.gravity('Ground')
@@ -14,7 +14,7 @@ Crafty.c('Throwable', {
 			.onHit('Enemy', function (enemies) {
 				if( !this.stuck ) enemies[0].obj.kill();
 			})
-			.collision(new Crafty.circle(this._origin.x, this._origin.y, 10));
+			.collision(new Crafty.circle(this._origin.x, this._origin.y, 15));
 	},
 
 	stick: function () {
@@ -34,8 +34,8 @@ Crafty.c('Throwable', {
 			this.antigravity();
 			this.z--;
 		} else {
+			console.log( this );
 			this.moveInDirection(this.speed);
-			this.attr({ rotation: this.rotation + 30 });
 			if (this.y > Game.height) this.y = 0;
 		}
 	}

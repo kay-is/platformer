@@ -14,6 +14,12 @@ Game = {
 		Crafty.init(Game.width, Game.height);
 		Crafty.canvas.init();
 
+		Crafty.c('Enemy', {
+			init: function() {
+				this.requires('WiredHitBox');
+			}
+		});
+
 		Crafty.canvas.context.webkitImageSmoothingEnabled = false;
 		Crafty.canvas.context.mozImageSmoothingEnabled = false;
 		Crafty.canvas.context.imageSmoothingEnabled = false;

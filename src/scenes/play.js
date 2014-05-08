@@ -13,6 +13,9 @@ Crafty.scene('Play', function () {
 	Game.player = Crafty.e('Player').setPosition(15, 18);
 
 	Crafty.e('Ghost').setPosition(15, 3);
+	Crafty.e('Bat').setPosition(20, 3);
+	Crafty.e('Skeleton').setPosition(10, 3);
+	Crafty.e('Demon').setPosition(25, 3);
 
 	Game.initScore();
 });
