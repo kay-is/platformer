@@ -20,10 +20,6 @@ Crafty.c('Player', {
 			[28, 1]
 		]);
 
-		this.reel('jumping', 10000, [
-			[27, 1]
-		]);
-
 		this.reel('attacking', 300, [
 			[29, 1],
 			[30, 1],
@@ -35,8 +31,10 @@ Crafty.c('Player', {
 		]);
 
 		this.bind('NewDirection', this.runningAnimation);
-		this.bind('Moved', function () {
-			if (this._falling) this.animate('jumping', 1);
+
+		this.bind('Moved', function (from) {
+			if( this._y !== from.y ) this.pauseAnimation();
+			else this.resumeAnimation();
 		});
 	},
 
@@ -65,6 +63,7 @@ Crafty.c('Player', {
 			.bind('NewDirection', function (e) {
 				if (e.x > 0) this.unflip();
 				else if (e.x < 0) this.flip();
+				console.log(e);
 			})
 			.bind('MouseDown', function (e) {
 				if (e.button == Crafty.mouseButtons.LEFT) {

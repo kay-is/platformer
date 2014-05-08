@@ -1,4 +1,5 @@
 Crafty.c('BlockCollision', {
+	_stuck: false,
 	init: function () {
 		this.requires('2D, Collision, Gravity');
 
