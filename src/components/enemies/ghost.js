@@ -16,6 +16,7 @@ Crafty.c('Ghost', {
 		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.onHit('Player', function (players) {
 				if (!this._dead) players[0].obj.kill();
+				this.unbind('EnterFrame', this.moving);
 			})
 			.bind('EnterFrame', this.moving);
 
@@ -41,29 +42,5 @@ Crafty.c('Ghost', {
 		this.animate('dead', -1);
 		this.gravity('Platform');
 		Game.addPoints(20);
-	},
-
-	handleBlockHit: function (block, from) {
-		var x, y;
-
-		if (block._x > from.x) x = from.x - 200;
-		if (block._x < from.x) x = from.x + 200;
-
-		if (block._y > from.y) y = from.y - 200;
-		if (block._y < from.y) y = from.y + 200;
-
-		this._target = {
-			x: x,
-			y: y
-		};
-
-		var i = 15, changeDirection = function () {
-			if (--i === 0) {
-				this._target = Game.player;
-				this.unbind('EnterFrame', changeDirection);
-			}
-		}.bind(this);
-
-		this.bind('EnterFrame', changeDirection);
 	}
 });

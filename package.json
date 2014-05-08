@@ -8,7 +8,8 @@
     "gulp": "~3.6.2",
     "gulp-uglify": "~0.2.1",
     "gulp-concat": "~2.2.0",
-    "gulp-jshint": "~1.5.5"
+    "gulp-jshint": "~1.5.5",
+    "gulp-inline-source": "0.0.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

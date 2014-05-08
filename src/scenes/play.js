@@ -12,5 +12,7 @@ Crafty.scene('Play', function () {
 
 	Game.player = Crafty.e('Player').setPosition(15, 18);
 
+	Crafty.e('Ghost').setPosition(15, 3);
+
 	Game.initScore();
 });

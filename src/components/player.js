@@ -49,8 +49,6 @@ Crafty.c('Player', {
 
 	kill: function () {
 		this.animate('dead', 1);
-		//this.destroy();
-		//Crafty.e('Player').setPosition(15, 18);
 	},
 
 	configProperties: function () {
@@ -63,7 +61,6 @@ Crafty.c('Player', {
 			.bind('NewDirection', function (e) {
 				if (e.x > 0) this.unflip();
 				else if (e.x < 0) this.flip();
-				console.log(e);
 			})
 			.bind('MouseDown', function (e) {
 				if (e.button == Crafty.mouseButtons.LEFT) {

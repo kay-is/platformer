@@ -8,6 +8,7 @@ var jsLintGlobs = [
 	'src/*.js',
 	'src/maps/*.js',
 	'src/components/*.js',
+	'src/components/enemies/*.js',
 	'src/scenes/*.js'
 ];
 
@@ -16,6 +17,7 @@ var jsGlobs = [
 	'src/*.js',
 	'src/maps/*.js',
 	'src/components/*.js',
+	'src/components/enemies/*.js',
 	'src/scenes/*.js'
 ];
 
@@ -32,6 +34,7 @@ gulp.task('scripts', function () {
 		.pipe(uglify())
 		.pipe(gulp.dest('dist'));
 });
+
 
 gulp.task('assets', function () {
 	return gulp.src('res/*')
