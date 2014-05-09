@@ -2,6 +2,7 @@ Crafty.c('Flame', {
 	_xDirection: 1,
 	_speed: 1,
 	_canAttack: true,
+	_attacking: false,
 
 	init: function () {
 		Crafty.sprite(32, Game.sprites, {
@@ -26,7 +27,7 @@ Crafty.c('Flame', {
 				}
 			})
 			.onHit('Player', function (players) {
-				if (!this._dead) players[0].obj.kill();
+				if (!this._dead && this._attacking) players[0].obj.kill();
 			})
 			.bind('EnterFrame', this.moving)
 			.bind('Fallen', this.facePlayer);
@@ -38,6 +39,10 @@ Crafty.c('Flame', {
 
 		this.reel('dead', 10000, [
 			[31, 13]
+		]);
+
+		this.reel('attacking', 200, [
+			[36, 13]
 		]);
 
 		this.animate('walking', -1);
@@ -55,12 +60,16 @@ Crafty.c('Flame', {
 			if (this._canAttack) {
 				this._canAttack = false;
 				this.facePlayer();
-				this._speed = 8;
+				this._speed = 7;
+				this._attacking = true;
+				this.animate('attacking');
 				setTimeout(function () {
-					this._speed = 2;
+					this._speed = 1;
+					this._attacking = false;
+					this.animate('walking', -1);
 					setTimeout(function () {
 						this._canAttack = true;
-					}.bind(this), 1000)
+					}.bind(this), 1500)
 				}.bind(this), 200);
 			}
 		}.bind(this));
