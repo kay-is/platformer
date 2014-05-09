@@ -12,8 +12,7 @@ Crafty.scene('Play', function () {
 
 	Game.player = Crafty.e('Player').setPosition(15, 18);
 
-	Crafty.e('Flame').setPosition(2, 8);
-	Crafty.e('Flame').setPosition(29, 8 ).moveLeft();
+	Crafty.e('Demon').setPosition(10, 5);
 
 	Game.initScore();
 });

@@ -57,7 +57,7 @@ Crafty.c('Flame', {
 		sight.attr({x: this._x - 60 });
 
 		sight.onHit('Player', function () {
-			if (this._canAttack) {
+			if (this._canAttack && !this._dead) {
 				this._canAttack = false;
 				this.facePlayer();
 				this._speed = 7;
