@@ -92,12 +92,14 @@ Crafty.c('Demon', {
 			.animate('walking', -1);
 
 		setInterval(function () {
-			this.animate('attack', 1);
-			var fire = Crafty.e('DemonFire').attr({ x: this._x, y: this._y });
-			if( this._flipX ) fire.moveLeft();
-			setTimeout(function(){
-				this.animate('walking', -1);
-			}.bind(this), 200);
+			if( !this._dead ) {
+				this.animate('attack', 1);
+				var fire = Crafty.e('DemonFire').attr({ x: this._x, y: this._y });
+				if( this._flipX ) fire.moveLeft();
+				setTimeout(function(){
+					this.animate('walking', -1);
+				}.bind(this), 200);
+			}
 		}.bind(this), 2000);
 	},
 

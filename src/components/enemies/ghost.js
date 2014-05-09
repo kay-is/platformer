@@ -15,7 +15,7 @@ Crafty.c('Ghost', {
 
 		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.onHit('Player', function (players) {
-				this.unbind('EnterFrame', this.moving);
+				if( !this._dead ) players[0].obj.kill();
 			})
 			.bind('EnterFrame', this.moving);
 

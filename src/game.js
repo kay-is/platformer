@@ -6,7 +6,7 @@ Game = {
 
 	score: 0,
 
-	sprites: 'res/simples_pimples.png',
+	sprites: 'res/simples_pimples_2.png',
 
 	maps: {},
 
