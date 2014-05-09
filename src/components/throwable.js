@@ -8,7 +8,7 @@ Crafty.c('Throwable', {
 
 		this.origin(16, 16)
 			.gravity('Ground')
-			.gravityConst(0.3)
+			.gravityConst(0.4)
 			.attr({ w: 32, h: 32 })
 			.onHit('Block', this.stick)
 			.onHit('Enemy', function (enemies) {
