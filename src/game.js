@@ -14,15 +14,11 @@ Game = {
 		Crafty.init(Game.width, Game.height);
 		Crafty.canvas.init();
 
-		Crafty.c('Enemy', {
-			init: function() {
-				this.requires('WiredHitBox');
-			}
-		});
-
 		Crafty.canvas.context.webkitImageSmoothingEnabled = false;
 		Crafty.canvas.context.mozImageSmoothingEnabled = false;
 		Crafty.canvas.context.imageSmoothingEnabled = false;
+
+		Crafty.audio.add("menu", "res/CausticChip16_0.ogg");
 
 		Crafty.load([Game.sprites], function () {
 			Game.initSprites();

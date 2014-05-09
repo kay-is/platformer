@@ -15,18 +15,13 @@ Crafty.c('Ghost', {
 
 		this.attr({ w: Game.gridSize, h: Game.gridSize })
 			.onHit('Player', function (players) {
-				if (!this._dead) players[0].obj.kill();
 				this.unbind('EnterFrame', this.moving);
 			})
 			.bind('EnterFrame', this.moving);
 
 		this.reel('flying', 1000, [
 			[28, 7],
-			[27, 7],
-		]);
-
-		this.reel('dead', 10000, [
-			[31, 7]
+			[27, 7]
 		]);
 
 		this.animate('flying', -1);
@@ -37,10 +32,7 @@ Crafty.c('Ghost', {
 	},
 
 	kill: function () {
-		this._dead = true;
-		this.unbind('EnterFrame', this.moving);
-		this.animate('dead', -1);
-		this.gravity('Platform');
+		this.destroy();
 		Game.addPoints(20);
 	}
 });

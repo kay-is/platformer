@@ -4,10 +4,10 @@ Crafty.c('Skeleton', {
 
 	init: function () {
 		Crafty.sprite(32, Game.sprites, {
-			GfxEnemyGhost: [27, 6]
+			GfxEnemySkeleton: [27, 6]
 		});
 
-		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyGhost');
+		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemySkeleton');
 
 		this._gameHeight = Crafty.DOM.translate(0, Game.height).y;
 
@@ -53,10 +53,12 @@ Crafty.c('Skeleton', {
 	},
 
 	kill: function () {
-		this._dead = true;
-		this.unbind('EnterFrame', this.moving);
-		this.animate('dead', -1);
-		Game.addPoints(10);
+		if( !this._dead ) {
+			this._dead = true;
+			this.unbind('EnterFrame', this.moving);
+			this.animate('dead', -1);
+			Game.addPoints(10);
+		}
 	},
 
 	moveLeft: function () {

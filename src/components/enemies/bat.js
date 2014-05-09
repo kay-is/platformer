@@ -40,11 +40,13 @@ Crafty.c('Bat', {
 	},
 
 	kill: function () {
-		this._dead = true;
-		this.unbind('EnterFrame', this.moving);
-		this.animate('dead', -1);
-		this.gravity('Platform');
-		Game.addPoints(20);
+		if( !this._dead ) {
+			this._dead = true;
+			this.unbind('EnterFrame', this.moving);
+			this.animate('dead', -1);
+			this.gravity('Platform');
+			Game.addPoints(20);
+		}
 	},
 
 	handleBlockHit: function (block, from) {

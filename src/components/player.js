@@ -1,5 +1,5 @@
 Crafty.c('Player', {
-	_shurikens: 4,
+	_shurikens: 3,
 	_countText: null,
 
 	init: function () {

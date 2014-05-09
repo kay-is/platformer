@@ -57,10 +57,14 @@ Crafty.c('Demon', {
 	},
 
 	kill: function () {
-		this._dead = true;
-		this.unbind('EnterFrame', this.moving);
-		this.animate('dead', -1);
-		Game.addPoints(10);
+		if( !this._dead ) {
+			this._dead = true;
+			this.unbind('EnterFrame', this.moving);
+			this.animate('dead', -1);
+			Game.addPoints(10);
+			Crafty.e( 'Ghost' ).attr({ x: this._x, y: this._y });
+			Crafty.e( 'Skeleton' ).attr({ x: this._x, y: this._y });
+		}
 	},
 
 	moveLeft: function () {

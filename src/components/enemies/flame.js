@@ -1,6 +1,6 @@
 Crafty.c('Flame', {
 	_xDirection: 1,
-	_speed: 2,
+	_speed: 1,
 
 	init: function () {
 		Crafty.sprite(32, Game.sprites, {
@@ -49,10 +49,12 @@ Crafty.c('Flame', {
 	},
 
 	kill: function () {
-		this._dead = true;
-		this.unbind('EnterFrame', this.moving);
-		this.animate('dead', -1);
-		Game.addPoints(10);
+		if( !this._dead ) {
+			this._dead = true;
+			this.unbind('EnterFrame', this.moving);
+			this.animate('dead', -1);
+			Game.addPoints(10);
+		}
 	},
 
 	moveLeft: function () {

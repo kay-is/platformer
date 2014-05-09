@@ -4,7 +4,7 @@ Crafty.c('Throwable', {
 	stuck: false,
 
 	init: function () {
-		this.requires('2D, Canvas, Gravity, Collision, DirectedMotion, WiredHitBox');
+		this.requires('2D, Canvas, Gravity, Collision, DirectedMotion');
 
 		this.origin(16, 16)
 			.gravity('Ground')
@@ -34,7 +34,6 @@ Crafty.c('Throwable', {
 			this.antigravity();
 			this.z--;
 		} else {
-			console.log( this );
 			this.moveInDirection(this.speed);
 			if (this.y > Game.height) this.y = 0;
 		}
