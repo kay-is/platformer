@@ -18,13 +18,15 @@ Crafty.c('DemonFire', {
 			]);
 
 		this.onHit('Block', function () {
-			this.animate('hit', 1);
-			this._speed = 0;
-			setTimeout(function () {
+				this.animate('hit', 1);
+				this._speed = 0;
+				setTimeout(function () {
 				this.destroy();
-			}.bind(this), 50);
-		});
-
+				}.bind(this), 50);
+			})
+			.onHit('Player', function(players){
+				players[0].obj.kill();
+			});
 		this.bind('EnterFrame', function () {
 			this.x += this._speed * this._xDirection;
 		});
