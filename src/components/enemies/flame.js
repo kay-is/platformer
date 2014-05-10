@@ -9,7 +9,7 @@ Crafty.c('Flame', {
 			GfxEnemyFire: [27, 13]
 		});
 
-		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyFire');
+		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyFire, Vision');
 
 		this._gameHeight = Crafty.DOM.translate(0, Game.height).y;
 
@@ -47,34 +47,26 @@ Crafty.c('Flame', {
 
 		this.animate('walking', -1);
 
-		this.initAttackBehaviour();
+		this.vision( new Crafty.polygon([-75, -5], [75, -5], [75, 10], [-75, 10]));
+		this.sees('Player', this.attack);
 	},
 
-	initAttackBehaviour: function () {
-		var sight = Crafty.e('2D, Collision')
-			.attr({w: 150, h: Game.gridSize});
-
-		sight.attr({x: this._x - 60 });
-
-		sight.onHit('Player', function () {
-			if (this._canAttack && !this._dead) {
-				this._canAttack = false;
-				this.facePlayer();
-				this._speed = 7;
-				this._attacking = true;
-				this.animate('attacking');
+	attack: function(){
+		if (this._canAttack && !this._dead) {
+			this._canAttack = false;
+			this.facePlayer();
+			this._speed = 7;
+			this._attacking = true;
+			this.animate('attacking');
+			setTimeout(function () {
+				this._speed = 1;
+				this._attacking = false;
+				this.animate('walking', -1);
 				setTimeout(function () {
-					this._speed = 1;
-					this._attacking = false;
-					this.animate('walking', -1);
-					setTimeout(function () {
-						this._canAttack = true;
-					}.bind(this), 1500)
-				}.bind(this), 200);
-			}
-		}.bind(this));
-
-		this.attach(sight);
+					this._canAttack = true;
+				}.bind(this), 1500)
+			}.bind(this), 200);
+		}
 	},
 
 	facePlayer: function () {
