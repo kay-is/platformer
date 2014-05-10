@@ -47,13 +47,14 @@ Crafty.c('DemonFire', {
 Crafty.c('Demon', {
 	_xDirection: 1,
 	_speed: 3,
+	_canShoot: true,
 
 	init: function () {
 		Crafty.sprite(32, Game.sprites, {
 			GfxEnemyDemon: [27, 4]
 		});
 
-		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyDemon');
+		this.requires('Enemy, Position, Canvas, Gravity, Collision, SpriteAnimation, GfxEnemyDemon, Vision');
 
 		this._gameHeight = Crafty.DOM.translate(0, Game.height).y;
 
@@ -87,16 +88,25 @@ Crafty.c('Demon', {
 			])
 			.animate('walking', -1);
 
-		setInterval(function () {
-			if( !this._dead ) {
-				this.animate('attack', 1);
-				var fire = Crafty.e('DemonFire').attr({ x: this._x, y: this._y });
-				if( this._flipX ) fire.moveLeft();
-				setTimeout(function(){
-					this.animate('walking', -1);
-				}.bind(this), 200);
-			}
-		}.bind(this), 2000);
+
+		this.vision( new Crafty.polygon([-1000, -5], [1000, -5], [1000, 10], [-1000, 10]));
+		this.sees('Player', this.shoot);
+	},
+
+	shoot: function(){
+		if( this._canShoot && !this._dead ) {
+			this.facePlayer();
+			this._canShoot = false;
+			this.animate('attack', 1);
+			var fire = Crafty.e('DemonFire').attr({ x: this._x, y: this._y });
+			if( this._flipX ) fire.moveLeft();
+			setTimeout(function(){
+				this._canShoot = true;
+			}.bind(this), 1000);
+			setTimeout(function(){
+				this.animate('walking',-1);
+			}.bind(this), 200);
+		}
 	},
 
 	facePlayer: function () {
