@@ -60,14 +60,8 @@ Crafty.c('Demon', {
 			.gravity('Platform')
 			.onHit('Block', function (blocks) {
 				var blockX = blocks[0].obj._x;
-				if (blockX > this._x) {
-					this._xDirection = -1;
-					this.flip();
-				}
-				else if (blockX < this._x) {
-					this._xDirection = 1;
-					this.unflip();
-				}
+				if (blockX > this._x) this.moveLeft();
+				else if (blockX < this._x) this.moveRight();
 			})
 			.onHit('Player', function (players) {
 				if (!this._dead) players[0].obj.kill();
@@ -103,6 +97,12 @@ Crafty.c('Demon', {
 		}.bind(this), 2000);
 	},
 
+	facePlayer: function () {
+		if (this._x > Game.player._x && this._xDirection === 1) this.moveLeft();
+		if (this._x < Game.player._x && this._xDirection === -1) this.moveRight();
+		return this;
+	},
+
 	moving: function () {
 		if (!this._falling) {
 			this.resumeAnimation();
@@ -135,6 +135,7 @@ Crafty.c('Demon', {
 
 	moveRight: function () {
 		this._xDirection = 1;
+		this.unflip();
 		return this;
 	}
 });

@@ -26,7 +26,7 @@ Crafty.c('Player', {
 			[26, 1]
 		]);
 
-		this.reel('dead', 1000, [
+		this.reel('dead', 10000, [
 			[31, 1]
 		]);
 
@@ -39,16 +39,26 @@ Crafty.c('Player', {
 	},
 
 	runningAnimation: function (direction) {
-		var reel;
+		if( !this._dead ) {
+			var reel;
 
-		if (direction.x) reel = 'running';
-		if (direction.x + direction.y === 0) reel = 'standing';
+			if (direction.x) reel = 'running';
+			if (direction.x + direction.y === 0) reel = 'standing';
 
-		this.animate(reel, -1);
+			this.animate(reel, -1);
+		}
 	},
 
 	kill: function () {
-		this.animate('dead', 1);
+		if( !this._dead ) {
+			this._dead = true;
+			this.twoway(0,0);
+			this.animate('dead', -1);
+			setTimeout(function(){
+				this.destroy();
+				Game.player = Crafty.e('Player' ).setPosition(15,18);
+			}.bind(this), 2000);
+		}
 	},
 
 	configProperties: function () {
